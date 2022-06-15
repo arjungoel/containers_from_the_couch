@@ -1,0 +1,29 @@
+# GVK aka TypeMeta (Group Versioning Kind)
+apiVersion: extension/v1beta1
+kind: ReplicaSet
+
+# Metadata aka ObjectMeta  --> name of the object and namespace where it's gonna reside
+metadata:
+  name: my-first-replica-set
+  namespace: myproject # namespaces (aka project in Openshift) is great for multi-tenancy
+
+spec:   # spec also known as `declaration`. This is where you as a user go and declare what you want
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+status:  # status --> It tells what's going on and what's the current state of the environment
+  availableReplicas: 1
+  fullyLabeledReplicas: 1
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
